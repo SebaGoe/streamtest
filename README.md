@@ -155,12 +155,19 @@ $ ./ngrok http 8080
 httpsのURLをブラウサーで開く（そしたらローカルじゃなくても観覧可能になる）
 
 同じパソコンでデバイスでもAndroidデバッグできるようにするには以下のような流れで設定すれば行けます：
+
 １）node app.sjでMedia serverをスタート
+
 ２）Port8080で ngrok スタート：$ ./ngrok http 8080
+
 ３）HTTPSアドレスをコピー、PWAのAPIもしくは直接使う（http://localhost:8080 -> https://9eada543.ngrok.io (トーネルによってアドレスが変わる)）
+
 ４）$ ng serve　でアプリをローカルでスタート ブラウザーでhttps://localhost:4200を開くことでエラーあればlocalhostを許可（SSLのセクションのようにサーティフィケートを設定してください）
+
 ５）ChromeでRemoteDeviceを選択（chrome://inspect）-> Port forwarding settingで4200を追加。詳しくはこちらでも見えます：　https://stackoverflow.com/questions/4779963/how-can-i-access-my-localhost-from-my-android-device
+
 ６）AndroidのChromeでhttps://localhost:4200 をアクセス許可する必要があるかもしれません。
+
 ７）シェクで動画スタートする
 
 
