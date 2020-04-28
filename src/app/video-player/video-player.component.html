@@ -4,7 +4,7 @@
     <a class="card" rel="noopener" href="/video">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
 
-      <span>Open HLS Video Player</span>
+      <span>シェイクで次のビデオ</span>
 
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
 
@@ -25,9 +25,35 @@
     </a>
 
   </div>
+  <div>
+  シェイクをするとビデオが次へと変わります。注意：ダウンロードに時間がかかるため、数分待ってください。動画１と３は10MB、動画２と４は17MBです。ロードがまだできてない時は黒くなっています。
+  </div>
 
     <div *ngIf="shaked$ | async; let shaked;">
       <h2 style="color:red;">
-          I've been shaken !!!
+        シェイクありました
       </h2>
   </div>
+    <button (click)="startAll()">ビデオスタート（シェイクでも可能）</button>
+    <div class="videos">
+    <div id="block-container360-1" [ngClass]="{'show': show1==true, 'hide': show1==false }">
+    ビデオ１<br />
+        <div id="container360-1">
+        </div>
+    </div>
+    <div id="block-container360-2" [ngClass]="{'show': show2==true, 'hide': show2==false }">
+    ビデオ２<br />
+        <div id="container360-2">
+        </div>
+    </div>
+    <div id="block-container360-3" [ngClass]="{'show': show3==true, 'hide': show3==false }">
+    ビデオ３<br />
+        <div id="container360-3">
+        </div>
+    </div>
+    <div id="block-container360-4" [ngClass]="{'show': show4==true, 'hide': show4==false }">
+    ビデオ４<br />
+        <div id="container360-4">
+        </div>
+    </div>
+    </div>
