@@ -9,6 +9,7 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { Camera360Component } from './camera360/camera360.component';
 import { HomeComponent } from './home/home.component';
 import { MotionSensorComponent } from './motion-sensor/motion-sensor.component';
+import { MotionSensorService } from './motion-sensor.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { MotionSensorComponent } from './motion-sensor/motion-sensor.component';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [MotionSensorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

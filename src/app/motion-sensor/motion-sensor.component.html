@@ -1,0 +1,6 @@
+<button (click)="play()">Start to play</button>
+  <div *ngIf="shaked$ | async; let shaked;">
+      <h2 style="color:red;">
+          I've been shaken !!!
+      </h2>
+  </div>
