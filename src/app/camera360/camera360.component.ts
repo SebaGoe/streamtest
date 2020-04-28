@@ -120,35 +120,34 @@ export class Camera360Component implements OnInit {
     this.lastShake.lastZ = current.z;
   }
   startAll() {
-      this.start0();
+      this.start1();
   //    this.start1();
       this.start2();
       this.start3();
       this.start4();
   }
+  startAllStreams() {
+    this.start1stream();
+//    this.start1();
+    this.start2stream();
+    this.start3stream();
+    this.start4stream();
+}
 
-  start0() {
+  start1stream() {
     var containerSelector = '#container360-1';
     if (Hls.isSupported()) {
         var hls = new Hls();
         var video = document.createElement('video');
 
-//        hls.loadSource('http://localhost:8000/test.m3u8');
-        hls.loadSource('https://9ab3a2e3.ngrok.io/test.m3u8');
+        hls.loadSource('http://localhost:8000/test.m3u8');
+//        hls.loadSource('https://9ab3a2e3.ngrok.io/test.m3u8');
       //  hls.loadSource('https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8');
         hls.attachMedia(video);
 
         hls.on(Hls.Events.MANIFEST_PARSED,function() {
             video.play()
       });
-
-      /**
-       * 
-ffmpeg -i cool.mp4 -profile:v baseline -level 3.0 -s 640x360 -start_number 0 -hls_time 10 -hls_list_size 0 -f hls index.m3u8
-ffmpeg -re -i rollercoaster.mp4 -c:v libx264 -preset superfast -tune zerolatency -c:a aac -ar 44100 -f flv rtmp://localhost/live/rollercoaster
-
-       */
-
       this.viewer1 = new Kaleidoscope.Video({
           source: video,
           containerId: containerSelector,
@@ -167,12 +166,112 @@ ffmpeg -re -i rollercoaster.mp4 -c:v libx264 -preset superfast -tune zerolatency
         alert("HLS.js doesn't work with your current browser");
     }
   }
+  start2stream() {
+    var containerSelector = '#container360-2';
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        var video = document.createElement('video');
+
+        hls.loadSource('http://localhost:8000/test.m3u8');
+//        hls.loadSource('https://9ab3a2e3.ngrok.io/test.m3u8');
+      //  hls.loadSource('https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8');
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED,function() {
+            video.play()
+      });
+
+      this.viewer2 = new Kaleidoscope.Video({
+          source: video,
+          containerId: containerSelector,
+          height: window.innerHeight,
+          width: window.innerWidth
+      });
+
+      this.viewer2.render();
+      window.onresize = this.viewer2.setSize({height: window.innerHeight, width: window.innerWidth});
+ 
+      document.querySelector(containerSelector).addEventListener('touchend', this.viewer2.play.bind(this.viewer2));
+      
+      document.querySelector(containerSelector)
+      .addEventListener('touchend', () => this.viewer2.play(this.viewer2));
+    } else {
+        alert("HLS.js doesn't work with your current browser");
+    }
+  }
+  start3stream() {
+    var containerSelector = '#container360-3';
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        var video = document.createElement('video');
+
+        hls.loadSource('http://localhost:8000/rollercoaster.m3u8');
+//        hls.loadSource('https://9ab3a2e3.ngrok.io/test.m3u8');
+      //  hls.loadSource('https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8');
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED,function() {
+            video.play()
+      });
+
+      this.viewer3 = new Kaleidoscope.Video({
+          source: video,
+          containerId: containerSelector,
+          height: window.innerHeight,
+          width: window.innerWidth
+      });
+
+      this.viewer3.render();
+      window.onresize = this.viewer3.setSize({height: window.innerHeight, width: window.innerWidth});
+ 
+      document.querySelector(containerSelector).addEventListener('touchend', this.viewer3.play.bind(this.viewer3));
+      
+      document.querySelector(containerSelector)
+      .addEventListener('touchend', () => this.viewer3.play(this.viewer3));
+    } else {
+        alert("HLS.js doesn't work with your current browser");
+    }
+  }
+  start4stream() {
+    var containerSelector = '#container360-4';
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        var video = document.createElement('video');
+
+//        hls.loadSource('http://localhost:8000/rollercoaster.m3u8');
+//        hls.loadSource('https://9ab3a2e3.ngrok.io/test.m3u8');
+        hls.loadSource('https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8');
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MANIFEST_PARSED,function() {
+            video.play()
+      });
+
+      this.viewer4 = new Kaleidoscope.Video({
+          source: video,
+          containerId: containerSelector,
+          height: window.innerHeight,
+          width: window.innerWidth
+      });
+
+      this.viewer4.render();
+      window.onresize = this.viewer4.setSize({height: window.innerHeight, width: window.innerWidth});
+ 
+      document.querySelector(containerSelector).addEventListener('touchend', this.viewer4.play.bind(this.viewer4));
+      
+      document.querySelector(containerSelector)
+      .addEventListener('touchend', () => this.viewer4.play(this.viewer4));
+    } else {
+        alert("HLS.js doesn't work with your current browser");
+    }
+  }
+
 
   start1() {
     var containerSelector = '#container360-1';
      this.viewer1 = new Kaleidoscope.Video({
-         source: '../../assets/videos/equi.mp4',// './assets/cool.mp4',
-         containerId: containerSelector,
+        source: './assets/videos/equi.mp4',
+        containerId: containerSelector,
          height: window.innerHeight,
          width: window.innerWidth
      });
@@ -192,8 +291,8 @@ ffmpeg -re -i rollercoaster.mp4 -c:v libx264 -preset superfast -tune zerolatency
   start2() {
     var containerSelector = '#container360-2';
      this.viewer2 = new Kaleidoscope.Video({
-         source: 'http://localhost:8000/test.m3u8',// './assets/cool.mp4',
-         containerId: containerSelector,
+        source: './assets/videos/equi.mp4',
+        containerId: containerSelector,
          height: window.innerHeight,
          width: window.innerWidth
      });
@@ -207,7 +306,7 @@ ffmpeg -re -i rollercoaster.mp4 -c:v libx264 -preset superfast -tune zerolatency
   start3() {
     var containerSelector = '#container360-3';
     this.viewer3 = new Kaleidoscope.Video({
-        source: '../../assets/videos/equi.mp4',// './assets/cool.mp4',
+        source: './assets/videos/equi.mp4',
         containerId: containerSelector,
         height: window.innerHeight,
         width: window.innerWidth
@@ -224,7 +323,7 @@ ffmpeg -re -i rollercoaster.mp4 -c:v libx264 -preset superfast -tune zerolatency
   start4() {
     var containerSelector = '#container360-4';
     this.viewer4 = new Kaleidoscope.Video({
-        source: '../../assets/videos/equi.mp4',// './assets/cool.mp4',
+        source: './assets/videos/equi.mp4',
         containerId: containerSelector,
         height: window.innerHeight,
         width: window.innerWidth

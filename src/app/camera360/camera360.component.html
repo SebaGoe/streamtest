@@ -1,10 +1,10 @@
-<p>camera360 works!</p>
+<p>360度カメラ</p>
 
   <div class="card-container">
     <a class="card" rel="noopener" href="/video">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
 
-      <span>Open HLS Video Player</span>
+      <span>シェイクで次のビデオ</span>
 
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
 
@@ -25,14 +25,36 @@
     </a>
 
   </div>
-  <div (click)="startAll()">Start All</div>
-  <app-motion-sensor></app-motion-sensor>
+  <div>360度カメラをストリームで再生する。
+  </div>
+  <button (click)="startAll()">スタートローカルビデオ</button><br /><br />
+    <button (click)="startAllStreams()">スタートストリーム</button>
 
-    <div id="container360-1">
+  <!--app-motion-sensor></app-motion-sensor-->
+  <!--Motion Sensorはインポートできるがあまり意味ないため、今は直接コンポーネントに入れてます-->
+    <div class="videos">
+    <div id="block-container360-1">
+        ビデオ1<br />
+
+        <div id="container360-1">
+        </div>
     </div>
-    <div id="container360-2">
+    <div id="block-container360-2">
+        ビデオ2<br />
+
+        <div id="container360-2">
+        </div>
     </div>
-    <div id="container360-3">
+    <div id="block-container360-3">
+        ビデオ3<br />
+
+        <div id="container360-3">
+        </div>
     </div>
-    <div id="container360-4">
+    <div id="block-container360-4">
+        ビデオ4<br />
+
+        <div id="container360-4">
+        </div>
+    </div>
     </div>

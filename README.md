@@ -78,6 +78,16 @@ $ ng build --prod
 $ npm run pwa
 ```
 
+
+# 360 Video
+
+ローカルサーバーを設置すれば例としてダウンロードすればいろいろテストできます。
+注意：Androidデバイスは以下のChromeでローカルホストで接続する必要がある。
+https://www.youtube.com/watch?v=rG4jSz_2HDY
+https://www.youtube.com/watch?v=14O7AxqjiVY
+https://www.youtube.com/watch?v=AX4hWfyHr5g
+
+
 # HLS Video サーバー
 
 最初、AndroidのみでもiOSで使えるようにHLSを使用。
