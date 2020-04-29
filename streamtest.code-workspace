@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../pwa-sensor/pwa-features"
+		},
+		{
+			"path": "../../nms/Node-Media-Server"
+		}
+	],
+	"settings": {}
+}
