@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { merge, delay } from 'rxjs/operators';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 declare  var Kaleidoscope:  any;
 
 @Component({
@@ -10,13 +12,46 @@ declare  var Kaleidoscope:  any;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VideoPlayerComponent implements OnInit {
+  // For the view change
+  public shakeStart: boolean = false;
+  public buttonStart: boolean = false;
+  public allStart: boolean = false;
 
+  // Video source from local
+  public videoSources = [
+    {
+      url: './assets/videos/ferrari-1m30s.mp4',
+      size: '4.8MB',
+      length: '1:30'
+    },
+    {
+      url: './assets/videos/equi.mp4',
+      title: 'Canvas',
+      size: '10.1MB',
+      length: '1:26'
+    },
+    {
+      url: './assets/videos/ClashofClans.mp4',
+      title: 'Apartment',
+      size: '17.4MB',
+      length: '1:23'
+    },
+    {
+      url: './assets/videos/newyork-15min.mp4',
+      title: 'New York',
+      size: '72MB',
+      length: '14:42'
+    },
+  ];
+  //For change the currentVideo
+  public currentView: number = 0;
+  public nextVideo: number = 1;
 
+  //shake related ones
   public compatible = true;
   public displayX = 0;
   public displayY = 0;
   public displayZ = 0;
-  public currentView = 0;
   public shaked$: Observable<boolean> = of(false);
   public lastShake = {
     lastTime: new Date(),
@@ -48,12 +83,28 @@ export class VideoPlayerComponent implements OnInit {
   show4: boolean = true;
 
   started: Boolean = false;
+  shakeVideo: Boolean = false;
 
 
-  constructor() {
+  constructor(private activatedRoute: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      console.log("params", params.get('videoType'));
+      if (params.get('videoType') === "shakeStart") {
+        this.shakeStart = true;
+      } else if (params.get('videoType') === "buttonStart") {
+        this.buttonStart = true;
+      } else if (params.get('videoType') === "allStart") {
+        this.allStart = true;
+        this.startAllShaked();
+      }
+      console.log("shake", this.shakeStart);
+      console.log("button", this.buttonStart);
+      console.log("all", this.allStart);
+      //this.name = params['name'];
+    });
 
     this.shaked$ = of(false).pipe(delay(this.options.timeout * 10));//.pipe(merge(of(false)));
     this.Shaked.subscribe(event => {
@@ -109,12 +160,12 @@ export class VideoPlayerComponent implements OnInit {
 
         if (timeDifference > this.options.timeout) {
           this.observer.next(e);
-          this.startAll();
+          this.startAllShaked();
           if (this.currentView === 4) {
             this.currentView = 0
           }
           this.currentView = this.currentView + 1;
-          this.displayNext(this.currentView);
+          this.displayNext(this.nextVideo);
           console.log("現在のビデオ：", this.currentView);
           // window.dispatchEvent(this.event);
           this.lastShake.lastTime = new Date();
@@ -131,8 +182,21 @@ export class VideoPlayerComponent implements OnInit {
       this.start2();
       this.start3();
       this.start4();
-      this.currentView = this.currentView + 1;
-      this.displayNext(this.currentView);
+//      this.currentView = this.currentView;
+      this.displayNext(this.nextVideo);
+      this.started = true;
+    } else {
+      return;
+    }
+  }
+  startAllShaked() {
+    if (!this.started) {
+      this.start1();
+      this.start2();
+      this.start3();
+      this.start4();
+      this.shakeVideo = true;
+      this.displayNext(this.nextVideo);
       this.started = true;
     } else {
       return;
@@ -140,28 +204,59 @@ export class VideoPlayerComponent implements OnInit {
   }
   displayNext(current: Number) {
     if(current === 1) {
+      if (this.buttonStart) {
+
+      this.viewer1.play();
+      this.viewer2.pause();
+      this.viewer3.pause();
+      this.viewer4.pause();
+      }
       this.show1 = true;
       this.show2 = false;
       this.show3 = false;
       this.show4 = false;
+      this.nextVideo = 2;
       console.log("Now 1");
   } else if (current === 2){
+    if (this.buttonStart) {
+
+    this.viewer2.play();
+    this.viewer1.pause();
+    this.viewer3.pause();
+    this.viewer4.pause();
+    }
     this.show1 = false;
     this.show2 = true;
     this.show3 = false;
     this.show4 = false;
+    this.nextVideo = 3;
     console.log("Now 2");
   } else if (current === 3){
+    if (this.buttonStart) {
+
+      this.viewer3.play();
+      this.viewer2.pause();
+      this.viewer1.pause();
+      this.viewer4.pause();
+    }
     this.show1 = false;
     this.show2 = false;
     this.show3 = true;
     this.show4 = false;
+    this.nextVideo = 4;
     console.log("Now 3");
   } else if (current === 4){
+    if (this.buttonStart) {
+      this.viewer4.play();
+      this.viewer2.pause();
+      this.viewer3.pause();
+      this.viewer1.pause();
+    }
     this.show1 = false;
     this.show2 = false;
     this.show3 = false;
     this.show4 = true;
+    this.nextVideo = 1;
     console.log("Now 4");
   } 
     
@@ -170,10 +265,11 @@ export class VideoPlayerComponent implements OnInit {
   start1() {
     var containerSelector = '#container360-1';
      this.viewer1 = new Kaleidoscope.Video({
-         source: './assets/videos/equi.mp4',// もしも重いならこちらに変更で早くなるなずです。動画が短い：'./assets/videos/cool.mp4',
+         source: this.shakeStart ? this.videoSources[0].url : this.videoSources[0].url,
          containerId: containerSelector,
          height: window.innerHeight,
-         width: window.innerWidth
+         width: window.innerWidth,
+         loop: true,
      });
      this.viewer1.render();
      window.onresize = this.viewer1.setSize({height: window.innerHeight, width: window.innerWidth});
@@ -182,31 +278,41 @@ export class VideoPlayerComponent implements OnInit {
      
      document.querySelector(containerSelector)
      .addEventListener('touchend', () => this.viewer1.play(this.viewer1));
+     if (this.buttonStart) {
 
+     this.viewer1.pause();
+     }
 
   }
   start2() {
     var containerSelector = '#container360-2';
      this.viewer2 = new Kaleidoscope.Video({
-         source: './assets/videos/ClashofClans.mp4',// './assets/videos/cool.mp4',
-         containerId: containerSelector,
+      source: this.videoSources[1].url,
+      containerId: containerSelector,
          height: window.innerHeight,
-         width: window.innerWidth
+         width: window.innerWidth,
+         loop: true
      });
      this.viewer2.render();
      window.onresize = this.viewer2.setSize({height: window.innerHeight, width: window.innerWidth});
      
      document.querySelector(containerSelector)
      .addEventListener('touchend', () => this.viewer2.play(this.viewer2));
+     if (this.buttonStart) {
+
+     this.viewer2.pause();
+     }
+
 
   }
   start3() {
     var containerSelector = '#container360-3';
     this.viewer3 = new Kaleidoscope.Video({
-        source: './assets/videos/equi.mp4',// './assets/videos/cool.mp4',
-        containerId: containerSelector,
+      source: this.shakeStart ? this.videoSources[0].url : this.videoSources[2].url,
+      containerId: containerSelector,
         height: window.innerHeight,
-        width: window.innerWidth
+        width: window.innerWidth,
+        loop: true
     });
     this.viewer3.render();
     window.onresize = this.viewer3.setSize({height: window.innerHeight, width: window.innerWidth});
@@ -214,16 +320,22 @@ export class VideoPlayerComponent implements OnInit {
     
     document.querySelector(containerSelector)
     .addEventListener('touchend', () => this.viewer3.play(this.viewer3));
+    if (this.buttonStart) {
+    this.viewer3.pause();
+    this.viewer3.muted = true;
+    }
+
 
   }
 
   start4() {
     var containerSelector = '#container360-4';
     this.viewer4 = new Kaleidoscope.Video({
-        source: './assets/videos/ClashofClans.mp4',// './assets/videos/cool.mp4',
-        containerId: containerSelector,
+      source: this.shakeStart ? this.videoSources[0].url : this.videoSources[3].url,
+      containerId: containerSelector,
         height: window.innerHeight,
-        width: window.innerWidth
+        width: window.innerWidth,
+        loop: true
     });
     this.viewer4.render();
     window.onresize = this.viewer4.setSize({height: window.innerHeight, width: window.innerWidth});
@@ -231,7 +343,14 @@ export class VideoPlayerComponent implements OnInit {
     
     document.querySelector(containerSelector)
     .addEventListener('touchend', () => this.viewer4.play(this.viewer4));
+    if (this.buttonStart) {
 
+    this.viewer4.pause();
+    }
+
+  }
+  startAllStreams() {
+    
   }
 }
 
