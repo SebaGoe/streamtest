@@ -8,7 +8,9 @@ import { HomeComponent } from './home/home.component'
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'video', component: VideoPlayerComponent },
-  { path: 'camera360', component: Camera360Component }
+  { path: 'video/:videoType', component: VideoPlayerComponent, pathMatch: 'full' },
+  { path: 'camera360', component: Camera360Component },
+  { path: 'camera360/:videoType', component: Camera360Component, pathMatch: 'full' }
 ];
 
 @NgModule({

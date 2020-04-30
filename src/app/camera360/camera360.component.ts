@@ -3,6 +3,7 @@ import { MotionSensorService } from '../motion-sensor.service';
 import { MotionSensorComponent } from '../motion-sensor/motion-sensor.component';
 import { Observable, of } from 'rxjs';
 import { merge, delay } from 'rxjs/operators';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 declare  var Kaleidoscope:  any;
 declare var Hls: any;
 
@@ -14,7 +15,86 @@ declare var Hls: any;
 
 })
 export class Camera360Component implements OnInit {
+
+  public allTheSame: boolean = false;
+  public allDifferent: boolean = false;
   public compatible = true;
+  // public videoSourceAllTheSame = {
+  //   video1: {
+  //     url: './assets/videos/puppies1m55s.mp4',
+  //     title: 'Puppies',
+  //     size: '5.4MB',
+  //     length: '1:55'
+  //   },
+  //   video2: {
+  //     url: './assets/videos/puppies1m55s.mp4',
+  //     title: 'Puppies',
+  //     size: '5.4MB',
+  //     length: '1:55'
+  //   },
+  //   video3: {
+  //     url: './assets/videos/puppies1m55s.mp4',
+  //     title: 'Puppies',
+  //     size: '5.4MB',
+  //     length: '1:55'
+  //   },
+  //   video4: {
+  //     url: './assets/videos/puppies1m55s.mp4',
+  //     title: 'Puppies',
+  //     size: '5.4MB',
+  //     length: '1:55'
+  //   },
+  // };
+  public videoSources = [
+    {
+      url: './assets/videos/ferrari-1m30s.mp4',
+      size: '4.8MB',
+      length: '1:30'
+    },
+    {
+      url: './assets/videos/equi.mp4',
+      title: 'Canvas',
+      size: '10.1MB',
+      length: '1:26'
+    },
+    {
+      url: './assets/videos/ClashofClans.mp4',
+      title: 'Apartment',
+      size: '17.4MB',
+      length: '1:23'
+    },
+    {
+      url: './assets/videos/newyork-15min.mp4',
+      title: 'New York',
+      size: '72MB',
+      length: '14:42'
+    },
+  ];
+  public videoStreams = [
+    {
+    url: './assets/videos/tiger-3m36s.mp4',
+    title: 'Tigers',
+    size: '7.4MB',
+    length: '3:36'
+  },
+  {
+    url: './assets/videos/puppies1m55s.mp4',
+    title: 'Puppies',
+    size: '5.4MB',
+    length: '1:55'
+  },
+  {
+    url: './assets/videos/mecca-3m40s.mp4',
+    title: 'Mecca',
+    size: '10.4MB',
+    length: '3:43'
+  },
+  {
+    url: './assets/videos/ferrari-1m30s.mp4',
+    size: '4.8MB',
+    length: '1:30'
+  },
+];
   public displayX = 0;
   public displayY = 0;
   public displayZ = 0;
@@ -44,10 +124,21 @@ export class Camera360Component implements OnInit {
   viewer3: any;
   viewer4: any;
 
-  constructor() {
+  constructor(  private activatedRoute: ActivatedRoute,    ) {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      console.log("params", params.get('videoType'));
+      if (params.get('videoType') === "allTheSame") {
+        this.allTheSame = true;
+      } else if (params.get('videoType') === "allDifferent") {
+        this.allDifferent = true;
+      }
+      console.log("same", this.allTheSame);
+      console.log("diff", this.allDifferent)
+      //this.name = params['name'];
+    });
     
     // setTimeout(()=>{
     //   this.start1();
@@ -121,14 +212,12 @@ export class Camera360Component implements OnInit {
   }
   startAll() {
       this.start1();
-  //    this.start1();
       this.start2();
       this.start3();
       this.start4();
   }
   startAllStreams() {
     this.start1stream();
-//    this.start1();
     this.start2stream();
     this.start3stream();
     this.start4stream();
@@ -270,7 +359,7 @@ export class Camera360Component implements OnInit {
   start1() {
     var containerSelector = '#container360-1';
      this.viewer1 = new Kaleidoscope.Video({
-        source: './assets/videos/equi.mp4',
+        source: this.allTheSame ? this.videoSources[0].url : this.videoSources[0].url,
         containerId: containerSelector,
          height: window.innerHeight,
          width: window.innerWidth
@@ -291,8 +380,8 @@ export class Camera360Component implements OnInit {
   start2() {
     var containerSelector = '#container360-2';
      this.viewer2 = new Kaleidoscope.Video({
-        source: './assets/videos/equi.mp4',
-        containerId: containerSelector,
+      source: this.allTheSame ? this.videoSources[0].url : this.videoSources[1].url,
+      containerId: containerSelector,
          height: window.innerHeight,
          width: window.innerWidth
      });
@@ -306,8 +395,8 @@ export class Camera360Component implements OnInit {
   start3() {
     var containerSelector = '#container360-3';
     this.viewer3 = new Kaleidoscope.Video({
-        source: './assets/videos/equi.mp4',
-        containerId: containerSelector,
+      source: this.allTheSame ? this.videoSources[0].url : this.videoSources[2].url,
+      containerId: containerSelector,
         height: window.innerHeight,
         width: window.innerWidth
     });
@@ -323,8 +412,8 @@ export class Camera360Component implements OnInit {
   start4() {
     var containerSelector = '#container360-4';
     this.viewer4 = new Kaleidoscope.Video({
-        source: './assets/videos/equi.mp4',
-        containerId: containerSelector,
+      source: this.allTheSame ? this.videoSources[0].url : this.videoSources[3].url,
+      containerId: containerSelector,
         height: window.innerHeight,
         width: window.innerWidth
     });
