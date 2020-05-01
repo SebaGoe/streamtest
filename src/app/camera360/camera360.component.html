@@ -6,57 +6,44 @@
 
   <ng-container *ngIf="allTheSame">
   <div class="main-header">同じ動画を同時再生</div>
-    こちらの動画は{{videoSources[0].length}}分、{{videoSources[0].size}}です。ロードには時間がかかる場合があります。<br>
+    <!--こちらの動画は{{videoSources[0].length}}分、{{videoSources[0].size}}です。ロードには時間がかかる場合があります。<br>-->
     <div class="main-header">
     <button class="select-button" (click)="startAll()">ビデオスタート</button>
     </div>
 
-  HLSで短い動画ですが楽しんでください。<br>
+  <!--HLSで短い動画ですが楽しんでください。<br>
     <div class="main-header">
 
     <button class="select-button" (click)="startAllStreams()">ストリームスタート（準備中）</button>
-    </div>
+    </div>-->
   </ng-container>
     <ng-container *ngIf="allDifferent">
   <div class="main-header">別の動画を同時再生</div>
-  こちらの4動画以下のようになっています。<br>
+  <!--こちらの4動画以下のようになっています。<br>
   <ng-container *ngFor="let video of videoSources; let i = index">
   {{i}} {{video.length}}分, {{video.size}}<br>
   </ng-container>
   
-  ロードには時間がかかる場合があります。<br>
+  ロードには時間がかかる場合があります。<br>-->
   <div class="main-header">
     <button class="select-button" (click)="startAll()">ビデオスタート</button>
     </div>
 
-  HLSで短い動画ですが楽しんでください。
-    <button class="select-button" (click)="startAllStreams()">ストリームスタート（準備中）</button><br /><br />
+  <!--HLSで短い動画ですが楽しんでください。
+    <button class="select-button" (click)="startAllStreams()">ストリームスタート（準備中）</button><br /><br />-->
   </ng-container>
 
 
     <div class="videos">
-    <div id="block-container360-1">
-        ビデオ1<br />
-
-        <div id="container360-1">
+ 
+        <div id="container360-1" class="video-container">
+        </div> 
+        <div id="container360-2" class="video-container">
         </div>
-    </div>
-    <div id="block-container360-2">
-        ビデオ2<br />
-
-        <div id="container360-2">
+ 
+        <div id="container360-3" class="video-container">
         </div>
-    </div>
-    <div id="block-container360-3">
-        ビデオ3<br />
-
-        <div id="container360-3">
+ 
+        <div id="container360-4" class="video-container">
         </div>
-    </div>
-    <div id="block-container360-4">
-        ビデオ4<br />
-
-        <div id="container360-4">
-        </div>
-    </div>
     </div>

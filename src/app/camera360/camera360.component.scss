@@ -1,12 +1,77 @@
-.videos {
-    position: relative
-    div {
-        position: absolute;
+    .videos {
+        position: relative;
+        // div {
+        //     position: absolute;
+        //     width: 50%;
+        //     display: inline-block;
+        // }
     }
-}
-.show {
-    display: block;
-}
-.hide {
-    display: none;
-}
+    
+    .show {
+        display: block;
+    }
+    
+    .hide {
+        display: none;
+    }
+    
+    @media screen and (min-width: 767px) {
+        .video {
+            display: flex;
+        }
+        .video-container {
+            width: 45vw;
+            height: 30vh;
+            display: inline-block;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .card {
+            border-radius: 4px;
+            border: 1px solid #eee;
+            background-color: #fafafa;
+            height: 25px;
+            width: 150px;
+            margin: 0 2px 2px;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease-in-out;
+            line-height: 24px;
+        }
+        .card-container .card:not(:last-child) {
+            margin-right: 0;
+        }
+        .card.card-small {
+            height: 16px;
+            width: 168px;
+        }
+        .card-container .card:not(.highlight-card) {
+            cursor: pointer;
+        }
+        .card-container .card:not(.highlight-card):hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+        }
+        .card-container .card:not(.highlight-card):hover .material-icons path {
+            fill: rgb(105, 103, 103);
+        }
+        .card.highlight-card {
+            background-color: #1976d2;
+            color: white;
+            font-weight: 600;
+            border: none;
+            width: auto;
+            min-width: 30%;
+            position: relative;
+        }
+        .card.card.highlight-card span {
+            margin-left: 60px;
+        }
+    }

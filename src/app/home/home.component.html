@@ -2,22 +2,26 @@
 
   <div class="card-container">
     <a class="card" rel="noopener" [routerLink]="['/camera360', 'allTheSame']">
-      <span>360度ビデオ再生（同じ動画）</span>
+      <span>360度ビデオ再生（同じ動画）PC用</span>
     </a>
 
         <a class="card" rel="noopener" [routerLink]="['/camera360', 'allDifferent']">
-      <span>360度ビデオ再生（別の動画）</span>
+      <span>360度ビデオ再生（別の動画）PC用</span>
     </a>
 
     <a class="card" rel="noopener" [routerLink]="['/video', 'buttonStart']">
-      <span>ボタンでビデオ切替</span>
+      <span>ボタンでビデオ切替　両方用</span>
     </a>
 
     <a class="card" rel="noopener" [routerLink]="['/video', 'shakeStart']">
-      <span>シェイクでビデオ切替</span>
+      <span>シェイクでビデオ切替　モバイル用</span>
     </a>
     <a class="card" rel="noopener" [routerLink]="['/video', 'allStart']">
-      <span>すぐスタート、シェイクでビデオ切替</span>
+      <span>すぐスタート、シェイクでビデオ切替　モバイル用</span>
     </a>
+
+        <!--<a class="card" rel="noopener" [routerLink]="['/hls-video', 'buttonStart']">
+      <span>HLSストリームVIDEO TAG</span>
+    </a>-->
 
   </div>

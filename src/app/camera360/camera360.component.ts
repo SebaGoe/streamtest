@@ -126,10 +126,12 @@ export class Camera360Component implements OnInit {
   viewer2: any;
   viewer3: any;
   viewer4: any;
+  currentWindowWidth = window.innerWidth;
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    console.log('current width', this.currentWindowWidth);
     this.activatedRoute.paramMap.subscribe((params) => {
       console.log('params', params.get('videoType'));
       if (params.get('videoType') === 'allTheSame') {
@@ -402,13 +404,25 @@ export class Camera360Component implements OnInit {
         ? this.videoSources[0].url
         : this.videoSources[0].url,
       containerId: containerSelector,
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
     this.viewer1.render();
     window.onresize = this.viewer1.setSize({
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
 
     document
@@ -430,13 +444,25 @@ export class Camera360Component implements OnInit {
         ? this.videoSources[0].url
         : this.videoSources[1].url,
       containerId: containerSelector,
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
     this.viewer2.render();
     window.onresize = this.viewer2.setSize({
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
 
     document
@@ -450,13 +476,25 @@ export class Camera360Component implements OnInit {
         ? this.videoSources[0].url
         : this.videoSources[2].url,
       containerId: containerSelector,
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
     this.viewer3.render();
     window.onresize = this.viewer3.setSize({
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
 
     document
@@ -471,13 +509,25 @@ export class Camera360Component implements OnInit {
         ? this.videoSources[0].url
         : this.videoSources[3].url,
       containerId: containerSelector,
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
     this.viewer4.render();
     window.onresize = this.viewer4.setSize({
-      height: window.innerHeight,
-      width: window.innerWidth,
+      height:
+        this.currentWindowWidth < 767
+          ? window.innerHeight
+          : window.innerHeight / 2,
+      width:
+        this.currentWindowWidth < 767
+          ? window.innerWidth
+          : window.innerWidth / 2,
     });
 
     document

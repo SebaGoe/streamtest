@@ -13,12 +13,12 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 declare var Kaleidoscope: any;
 
 @Component({
-  selector: 'app-video-player',
-  templateUrl: './video-player.component.html',
-  styleUrls: ['./video-player.component.scss'],
+  selector: 'app-hls-video',
+  templateUrl: './hls-video.component.html',
+  styleUrls: ['./hls-video.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoPlayerComponent implements OnInit {
+export class HlsVideoComponent implements OnInit {
   // For the view change
   public shakeStart: boolean = false;
   public buttonStart: boolean = false;
@@ -52,24 +52,24 @@ export class VideoPlayerComponent implements OnInit {
   ];
   public videoSourcesHLS = [
     {
-      url: './assets/videos/ferrari-1m30s.mp4',
+      url: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
       size: '4.8MB',
       length: '1:30',
     },
     {
-      url: './assets/videos/equi.mp4',
+      url: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
       title: 'Canvas',
       size: '10.1MB',
       length: '1:26',
     },
     {
-      url: './assets/videos/ClashofClans.mp4',
+      url: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
       title: 'Apartment',
       size: '17.4MB',
       length: '1:23',
     },
     {
-      url: './assets/videos/newyork-15min.mp4',
+      url: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8',
       title: 'New York',
       size: '72MB',
       length: '14:42',
@@ -93,7 +93,7 @@ export class VideoPlayerComponent implements OnInit {
   };
   private options = {
     threshold: 15, // default velocity threshold for shake to register
-    timeout: 100, // default interval between events
+    timeout: 1000, // default interval between events
   };
   private observer: any;
   public Shaked = new Observable((observer: any) => {
