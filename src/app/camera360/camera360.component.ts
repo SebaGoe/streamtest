@@ -1,5 +1,6 @@
 import {
   Component,
+  OnDestroy,
   OnInit,
   ChangeDetectionStrategy,
   HostListener,
@@ -227,6 +228,12 @@ export class Camera360Component implements OnInit {
     this.lastShake.lastY = current.y;
     this.lastShake.lastZ = current.z;
   }
+  ngOnDestroy() {
+    this.viewer1.destroy();
+    this.viewer2.destroy();
+    this.viewer3.destroy();
+    this.viewer4.destroy();
+  }
   startAll() {
     this.start1();
     this.start2();
@@ -246,7 +253,7 @@ export class Camera360Component implements OnInit {
       var hls = new Hls();
       var video = document.createElement('video');
 
-      hls.loadSource('https://d826e437.ngrok.io/newyork.m3u8');
+      hls.loadSource('https://465b486a.ngrok.io');
       //        hls.loadSource('https://9ab3a2e3.ngrok.io/test.m3u8');
       //  hls.loadSource('https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8');
       hls.attachMedia(video);
@@ -323,9 +330,7 @@ export class Camera360Component implements OnInit {
       var hls = new Hls();
       var video = document.createElement('video');
 
-      hls.loadSource(
-        'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'
-      );
+      hls.loadSource('https://465b486a.ngrok.io');
       //        hls.loadSource('https://9ab3a2e3.ngrok.io/test.m3u8');
       //  hls.loadSource('https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8');
       hls.attachMedia(video);
@@ -363,9 +368,7 @@ export class Camera360Component implements OnInit {
     if (Hls.isSupported()) {
       var hls = new Hls();
       var video = document.createElement('video');
-      hls.loadSource(
-        'https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8'
-      );
+      hls.loadSource('https://465b486a.ngrok.io');
       hls.attachMedia(video);
 
       hls.on(Hls.Events.MANIFEST_PARSED, function () {

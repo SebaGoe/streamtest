@@ -1,5 +1,6 @@
 import {
   Component,
+  OnDestroy,
   OnInit,
   ChangeDetectionStrategy,
   HostListener,
@@ -143,6 +144,12 @@ export class VideoPlayerComponent implements OnInit {
       );
     });
     this.compatible = this.checkCompatibility();
+  }
+  ngOnDestroy() {
+    this.viewer1.destroy();
+    this.viewer2.destroy();
+    this.viewer3.destroy();
+    this.viewer4.destroy();
   }
   public checkCompatibility() {
     return !!('DeviceMotionEvent' in window);
