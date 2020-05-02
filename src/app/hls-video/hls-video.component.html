@@ -1,0 +1,94 @@
+  <div class="card-container">
+    <a class="card" rel="noopener" href="/">
+      <span>Home へ戻る</span>
+    </a>
+  </div>
+
+  <ng-container *ngIf="buttonStart">
+    <div class="main-header">ボタンでスタート、切替</div>
+
+  こちらの4動画以下のようになっています。<br>
+  <ng-container *ngFor="let video of videoSources; let i = index">
+  {{i}} {{video.length}}分, {{video.size}}<br>
+  </ng-container>
+  <div class="main-header">
+  <ng-container *ngIf="!started; else nextButton">
+    <button class="select-button" (click)="startAll()">ビデオスタート</button>
+    </ng-container>
+    <ng-template #nextButton>
+    <button class="select-button" (click)="displayNext(nextVideo)">次の動画</button>
+    </ng-template>
+    </div>
+
+  HLSで短い動画ですが楽しんでください。<br>
+    <div class="main-header">
+
+    <button class="select-button" (click)="startAllStreams()">ストリームスタート（準備中）</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="shakeStart">
+    <div class="main-header">ボタンやシェイクでスタート、シェイクで切替（モバイルのみ）</div>
+      こちらの4動画以下のようになっています。<br>
+  <ng-container *ngFor="let video of videoSources; let i = index">
+  {{i}} {{video.length}}分, {{video.size}}<br>
+  </ng-container>
+  <div class="main-header">
+    <button class="select-button" (click)="startAll()">ビデオスタート</button>
+    <ng-template #nextButton>
+    <button class="select-button" (click)="displayNext(nextVideo)">次の動画</button>
+    </ng-template>
+    </div>
+  </ng-container>
+    <ng-container *ngIf="allStart">
+    <div class="main-header">全て同時スタート</div>
+  </ng-container>
+
+    <ng-container *ngIf="allStart">
+    <div class="main-header">ボタンやシェイクでスタート、シェイクで切替（モバイルのみ）</div>
+      こちらの4動画以下のようになっています。<br>
+  <ng-container *ngFor="let video of videoSources; let i = index">
+  {{i}} {{video.length}}分, {{video.size}}<br>
+  </ng-container>
+  <div class="main-header">
+    <button class="select-button" (click)="startAllShaked()">ビデオスタート</button>
+    <ng-template #nextButton>
+    <button class="select-button" (click)="displayNext(nextVideo)">次の動画</button>
+    </ng-template>
+    </div>
+  </ng-container>
+
+<ng-container *ngIf="!buttonStart">
+    <div *ngIf="shaked$ | async; let shaked;">
+      <h2 style="color:red;">
+        シェイクありました
+      </h2>
+  </div>
+  </ng-container>
+    <div class="videos" [ngClass]="{'fullscreen' : shakeVideo==true}">
+    <ng-container *ngFor="let video of videoSources; let j = index">
+    <div id="block-container360-1" [ngClass]="{'show': show1==true, 'hide': show1==false}">
+    ビデオ{{j+1}}<br />
+    {{video.url}}<br />
+        <video preload="auto" crossorigin controls autoplay>
+        <source [src]="video.url">
+        </video>
+        <!--div id="container360-1">
+        </div-->
+    </div>
+    <!--div id="block-container360-2" [ngClass]="{'show': show2==true, 'hide': show2==false }">
+    ビデオ２<br />
+        <div id="container360-2">
+        </div>
+    </div>
+    <div id="block-container360-3" [ngClass]="{'show': show3==true, 'hide': show3==false }">
+    ビデオ３<br />
+        <div id="container360-3">
+        </div>
+    </div>
+    <div id="block-container360-4" [ngClass]="{'show': show4==true, 'hide': show4==false }">
+    ビデオ４<br />
+        <div id="container360-4">
+        </div>
+    </div-->
+    </ng-container>
+    </div>
